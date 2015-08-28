@@ -1,0 +1,22 @@
+{
+  "name": "ivan-chkv/yii2-jquery-input-mask",
+  "description": "Yii 2 jQuery Input Mask Widget",
+  "keywords": ["yii2", "jquery", "input", "mask"],
+  "homepage": "http://robinherbots.github.io/jquery.inputmask/",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivan Chistyakov",
+      "email": "ivan.chkv@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": ">=2.0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "yii\\jquery\\input_mask\\": ""
+    }
+  }
+}
