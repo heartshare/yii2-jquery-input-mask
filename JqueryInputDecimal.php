@@ -12,6 +12,8 @@ class JqueryInputDecimal extends JqueryInputMask
 
     public $integerDigits = '+';
 
+    public $radixPoint = '.';
+
     public $digits = 2;
 
     public $digitsOptional = true;
@@ -33,6 +35,7 @@ class JqueryInputDecimal extends JqueryInputMask
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
+            'radixPoint' => $this->radixPoint,
             'digits' => $this->digits
         ]);
         return parent::run();
