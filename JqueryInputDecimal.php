@@ -21,8 +21,8 @@ class JqueryInputDecimal extends JqueryInputInteger
     {
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->radixPoint)) {
-            if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
-                $this->radixPoint = $match[2];
+            if (preg_match('~^\d\D*\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
+                $this->radixPoint = $match[1];
             } else {
                 $this->radixPoint = $formatter->decimalSeparator;
             }
