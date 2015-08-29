@@ -2,7 +2,8 @@
 
 namespace yii\jquery\input_mask;
 
-use Yii;
+use NumberFormatter,
+    Yii;
 
 
 class JqueryInputDecimal extends JqueryInputMask
@@ -25,11 +26,17 @@ class JqueryInputDecimal extends JqueryInputMask
     public function init()
     {
         $this->alias = 'decimal';
+        $formatter = Yii::$app->getFormatter();
         if (is_null($this->radixPoint)) {
-            $this->radixPoint = Yii::$app->getFormatter()->decimalSeparator;
+            $this->radixPoint = $formatter->decimalSeparator;
         }
         if (is_null($this->radixPoint)) {
-            $this->radixPoint = '.';
+            if (extension_loaded('intl')) {
+                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+            } else {
+                $this->radixPoint = '.';
+            }
         }
         parent::init();
     }
