@@ -6,11 +6,7 @@ namespace yii\jquery\input_mask;
 class JqueryInputPhone extends JqueryInputMask
 {
 
-    public function init()
-    {
-        $this->alias = 'phone';
-        parent::init();
-    }
+    const ALIAS = 'phone';
 
     public function run()
     {
