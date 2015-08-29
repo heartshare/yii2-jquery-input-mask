@@ -50,7 +50,7 @@ class JqueryInputInteger extends JqueryInputMask
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
             'groupSeparator' => $this->groupSeparator,
-            'autoGroup' => (bool)$this->groupSeparator
+            'autoGroup' => strlen($this->groupSeparator) > 0
         ]);
         return parent::run();
     }

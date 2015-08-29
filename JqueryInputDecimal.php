@@ -15,11 +15,7 @@ class JqueryInputDecimal extends JqueryInputMask
 
     public $integerDigits = '+';
 
-    public $radixPoint = null;
-
-    public $digits = 2;
-
-    public $digitsOptional = true;
+    public $groupSeparator = null;
 
     public $rightAlign = false;
 
@@ -27,15 +23,19 @@ class JqueryInputDecimal extends JqueryInputMask
     {
         $this->alias = 'decimal';
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->radixPoint)) {
-            $this->radixPoint = $formatter->decimalSeparator;
+        if (is_null($this->groupSeparator)) {
+            if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
+                $this->groupSeparator = $match[1];
+            } else {
+                $this->groupSeparator = $formatter->thousandSeparator;
+            }
         }
-        if (is_null($this->radixPoint)) {
+        if (is_null($this->groupSeparator)) {
             if (extension_loaded('intl')) {
                 $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+                $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
             } else {
-                $this->radixPoint = '.';
+                $this->groupSeparator = ',';
             }
         }
         parent::init();
@@ -44,14 +44,13 @@ class JqueryInputDecimal extends JqueryInputMask
     public function run()
     {
         $this->clientOptions = array_merge([
-            'digitsOptional' => $this->digitsOptional,
             'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
-            'radixPoint' => $this->radixPoint,
-            'digits' => $this->digits
+            'groupSeparator' => $this->groupSeparator,
+            'autoGroup' => strlen($this->groupSeparator) > 0
         ]);
         return parent::run();
     }
