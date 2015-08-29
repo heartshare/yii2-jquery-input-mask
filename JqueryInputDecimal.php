@@ -30,32 +30,21 @@ class JqueryInputDecimal extends JqueryInputMask
     public function init()
     {
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->groupSeparator)) {
-            if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
+        if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
+            if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
                 $this->groupSeparator = $match[1];
+                $this->radixPoint = $match[2];
             } else {
                 $this->groupSeparator = $formatter->thousandSeparator;
+                $this->radixPoint = $formatter->decimalSeparator;
             }
-            if (is_null($this->groupSeparator)) {
+            if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
                     $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
-                } else {
-                    $this->groupSeparator = ',';
-                }
-            }
-        }
-        if (is_null($this->radixPoint)) {
-            if (preg_match('~^\d\D*\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
-                $this->radixPoint = $match[1];
-            } else {
-                $this->radixPoint = $formatter->decimalSeparator;
-            }
-            if (is_null($this->radixPoint)) {
-                if (extension_loaded('intl')) {
-                    $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
                     $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
                 } else {
+                    $this->groupSeparator = ',';
                     $this->radixPoint = '.';
                 }
             }
