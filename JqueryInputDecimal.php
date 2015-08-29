@@ -6,17 +6,17 @@ namespace yii\jquery\input_mask;
 class JqueryInputDecimal extends JqueryInputMask
 {
 
-    public $integerDigits = '+';
-
-    public $digits = '*';
-
     public $allowMinus = true;
 
     public $allowPlus = false;
 
-    public $rightAlign = false;
+    public $integerDigits = '+';
+
+    public $digits = 2;
 
     public $digitsOptional = true;
+
+    public $rightAlign = false;
 
     public function init()
     {
@@ -27,13 +27,13 @@ class JqueryInputDecimal extends JqueryInputMask
     public function run()
     {
         $this->clientOptions = array_merge([
-            'rightAlign' => $this->rightAlign,
-            'digitsOptional' => $this->digitsOptional
+            'digitsOptional' => $this->digitsOptional,
+            'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
-            'integerDigits' => $this->integerDigits,
-            'digits' => $this->digits,
             'allowMinus' => $this->allowMinus,
-            'allowPlus' => $this->allowPlus
+            'allowPlus' => $this->allowPlus,
+            'integerDigits' => $this->integerDigits,
+            'digits' => $this->digits
         ]);
         return parent::run();
     }
