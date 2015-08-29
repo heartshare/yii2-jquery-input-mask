@@ -2,7 +2,8 @@
 
 namespace yii\jquery\input_mask;
 
-use Yii;
+use NumberFormatter,
+    Yii;
 
 
 class JqueryInputInteger extends JqueryInputMask
@@ -27,6 +28,14 @@ class JqueryInputInteger extends JqueryInputMask
                 $this->groupSeparator = $match[1];
             } else {
                 $this->groupSeparator = $formatter->thousandSeparator;
+            }
+        }
+        if (is_null($this->groupSeparator)) {
+            if (extension_loaded('intl')) {
+                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+            } else {
+                $this->groupSeparator = ',';
             }
         }
         parent::init();
