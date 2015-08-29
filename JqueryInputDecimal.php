@@ -6,16 +6,10 @@ use NumberFormatter,
     Yii;
 
 
-class JqueryInputDecimal extends JqueryInputMask
+class JqueryInputDecimal extends JqueryInputInteger
 {
 
-    public $allowMinus = true;
-
-    public $allowPlus = false;
-
-    public $integerDigits = '+';
-
-    public $groupSeparator = null;
+    const ALIAS = 'decimal';
 
     public $radixPoint = null;
 
@@ -23,27 +17,9 @@ class JqueryInputDecimal extends JqueryInputMask
 
     public $digitsOptional = true;
 
-    public $rightAlign = false;
-
     public function init()
     {
-        $this->alias = 'decimal';
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->groupSeparator)) {
-            if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
-                $this->groupSeparator = $match[1];
-            } else {
-                $this->groupSeparator = $formatter->thousandSeparator;
-            }
-        }
-        if (is_null($this->groupSeparator)) {
-            if (extension_loaded('intl')) {
-                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
-            } else {
-                $this->groupSeparator = ',';
-            }
-        }
         if (is_null($this->radixPoint)) {
             if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
                 $this->radixPoint = $match[2];
@@ -65,14 +41,8 @@ class JqueryInputDecimal extends JqueryInputMask
     public function run()
     {
         $this->clientOptions = array_merge([
-            'digitsOptional' => $this->digitsOptional,
-            'rightAlign' => $this->rightAlign
+            'digitsOptional' => $this->digitsOptional
         ], $this->clientOptions, [
-            'allowMinus' => $this->allowMinus,
-            'allowPlus' => $this->allowPlus,
-            'integerDigits' => $this->integerDigits,
-            'groupSeparator' => $this->groupSeparator,
-            'autoGroup' => strlen($this->groupSeparator) > 0,
             'radixPoint' => $this->radixPoint,
             'digits' => $this->digits
         ]);
