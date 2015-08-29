@@ -26,13 +26,13 @@ class JqueryInputDecimal extends JqueryInputInteger
             } else {
                 $this->radixPoint = $formatter->decimalSeparator;
             }
-        }
-        if (is_null($this->radixPoint)) {
-            if (extension_loaded('intl')) {
-                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
-            } else {
-                $this->radixPoint = '.';
+            if (is_null($this->radixPoint)) {
+                if (extension_loaded('intl')) {
+                    $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                    $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+                } else {
+                    $this->radixPoint = '.';
+                }
             }
         }
         parent::init();

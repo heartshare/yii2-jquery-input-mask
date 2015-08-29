@@ -30,13 +30,13 @@ class JqueryInputInteger extends JqueryInputMask
             } else {
                 $this->groupSeparator = $formatter->thousandSeparator;
             }
-        }
-        if (is_null($this->groupSeparator)) {
-            if (extension_loaded('intl')) {
-                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
-            } else {
-                $this->groupSeparator = ',';
+            if (is_null($this->groupSeparator)) {
+                if (extension_loaded('intl')) {
+                    $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                    $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+                } else {
+                    $this->groupSeparator = ',';
+                }
             }
         }
         parent::init();
