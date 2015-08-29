@@ -32,20 +32,36 @@ class JqueryInputDecimal extends JqueryInputMask
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
             if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
-                if (is_null($this->groupSeparator)) $this->groupSeparator = $match[1];
-                if (is_null($this->radixPoint)) $this->radixPoint = $match[2];
+                if (is_null($this->groupSeparator)) {
+                    $this->groupSeparator = $match[1];
+                }
+                if (is_null($this->radixPoint)) {
+                    $this->radixPoint = $match[2];
+                }
             } else {
-                if (is_null($this->groupSeparator)) $this->groupSeparator = $formatter->thousandSeparator;
-                if (is_null($this->radixPoint)) $this->radixPoint = $formatter->decimalSeparator;
+                if (is_null($this->groupSeparator)) {
+                    $this->groupSeparator = $formatter->thousandSeparator;
+                }
+                if (is_null($this->radixPoint)) {
+                    $this->radixPoint = $formatter->decimalSeparator;
+                }
             }
             if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                    if (is_null($this->groupSeparator)) $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
-                    if (is_null($this->radixPoint)) $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+                    if (is_null($this->groupSeparator)) {
+                        $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+                    }
+                    if (is_null($this->radixPoint)) {
+                        $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+                    }
                 } else {
-                    if (is_null($this->groupSeparator)) $this->groupSeparator = ',';
-                    if (is_null($this->radixPoint)) $this->radixPoint = '.';
+                    if (is_null($this->groupSeparator)) {
+                        $this->groupSeparator = ',';
+                    }
+                    if (is_null($this->radixPoint)) {
+                        $this->radixPoint = '.';
+                    }
                 }
             }
         }
