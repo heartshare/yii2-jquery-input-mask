@@ -31,7 +31,7 @@ class JqueryInputMoney extends JqueryInputMask
     {
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
-            if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
+            if (preg_match('~^1(\D*)000(\D*)99$~', $formatter->asDecimal(1000.99), $match)) {
                 if (is_null($this->groupSeparator)) {
                     $this->groupSeparator = $match[1];
                 }

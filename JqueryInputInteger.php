@@ -25,7 +25,7 @@ class JqueryInputInteger extends JqueryInputMask
     {
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator)) {
-            if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
+            if (preg_match('~^1(\D*)000$~', $formatter->asInteger(1000), $match)) {
                 $this->groupSeparator = $match[1];
             } else {
                 $this->groupSeparator = $formatter->thousandSeparator;
