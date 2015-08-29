@@ -14,6 +14,8 @@ class JqueryInputMoney extends JqueryInputMask
 
     public $integerDigits = '+';
 
+    public $groupSeparator = null;
+
     public $radixPoint = null;
 
     public $digits = 2;
@@ -24,9 +26,16 @@ class JqueryInputMoney extends JqueryInputMask
 
     public function init()
     {
-        $this->alias = 'decimal';
+        $this->alias = 'currency';
+        $formatter = Yii::$app->getFormatter();
+        if (is_null($this->groupSeparator)) {
+            $this->groupSeparator = $formatter->thousandSeparator;
+        }
+        if (is_null($this->groupSeparator)) {
+            $this->groupSeparator = ',';
+        }
         if (is_null($this->radixPoint)) {
-            $this->radixPoint = Yii::$app->getFormatter()->decimalSeparator;
+            $this->radixPoint = $formatter->decimalSeparator;
         }
         if (is_null($this->radixPoint)) {
             $this->radixPoint = '.';
@@ -43,6 +52,7 @@ class JqueryInputMoney extends JqueryInputMask
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
+            'groupSeparator' => $this->groupSeparator,
             'radixPoint' => $this->radixPoint,
             'digits' => $this->digits
         ]);
