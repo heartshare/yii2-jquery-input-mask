@@ -50,10 +50,10 @@ class JqueryInputMoney extends JqueryInputMask
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
                     if (is_null($this->groupSeparator)) {
-                        $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+                        $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL);
                     }
                     if (is_null($this->radixPoint)) {
-                        $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+                        $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::MONETARY_SEPARATOR_SYMBOL);
                     }
                 } else {
                     if (is_null($this->groupSeparator)) {
