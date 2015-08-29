@@ -2,7 +2,8 @@
 
 namespace yii\jquery\input_mask;
 
-use Yii;
+use NumberFormatter,
+    Yii;
 
 
 class JqueryInputMoney extends JqueryInputMask
@@ -29,16 +30,34 @@ class JqueryInputMoney extends JqueryInputMask
         $this->alias = 'currency';
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator)) {
-            $this->groupSeparator = $formatter->thousandSeparator;
+            if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
+                $this->groupSeparator = $match[1];
+            } else {
+                $this->groupSeparator = $formatter->thousandSeparator;
+            }
         }
         if (is_null($this->groupSeparator)) {
-            $this->groupSeparator = ',';
+            if (extension_loaded('intl')) {
+                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+            } else {
+                $this->groupSeparator = ',';
+            }
         }
         if (is_null($this->radixPoint)) {
-            $this->radixPoint = $formatter->decimalSeparator;
+            if (preg_match('~^\d(\D*)\d{3}(\D*)\d{2}$~', $formatter->asDecimal(1000.99), $match)) {
+                $this->radixPoint = $match[2];
+            } else {
+                $this->radixPoint = $formatter->decimalSeparator;
+            }
         }
         if (is_null($this->radixPoint)) {
-            $this->radixPoint = '.';
+            if (extension_loaded('intl')) {
+                $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
+                $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+            } else {
+                $this->radixPoint = '.';
+            }
         }
         parent::init();
     }
@@ -53,6 +72,7 @@ class JqueryInputMoney extends JqueryInputMask
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
             'groupSeparator' => $this->groupSeparator,
+            'autoGroup' => strlen($this->groupSeparator) > 0,
             'radixPoint' => $this->radixPoint,
             'digits' => $this->digits
         ]);
