@@ -9,6 +9,8 @@ use NumberFormatter,
 class JqueryInputInteger extends JqueryInputMask
 {
 
+    const ALIAS = 'integer';
+
     public $allowMinus = true;
 
     public $allowPlus = false;
@@ -21,7 +23,6 @@ class JqueryInputInteger extends JqueryInputMask
 
     public function init()
     {
-        $this->alias = 'integer';
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator)) {
             if (preg_match('~^\d(\D*)\d{3}$~', $formatter->asInteger(1000), $match)) {
