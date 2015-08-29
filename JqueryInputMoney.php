@@ -2,49 +2,49 @@
 
 namespace yii\jquery\input_mask;
 
+use Yii;
+
 
 class JqueryInputMoney extends JqueryInputMask
 {
-
-    public $prefix = '';
-
-    public $integerDigits = '+';
-
-    public $digits = '*';
 
     public $allowMinus = true;
 
     public $allowPlus = false;
 
-public $autoGroup = false;
+    public $integerDigits = '+';
 
-public $groupSeparator = ' ';
+    public $radixPoint = null;
 
-    public $rightAlign = false;
+    public $digits = 2;
 
     public $digitsOptional = true;
 
+    public $rightAlign = false;
+
     public function init()
     {
-        $this->alias = 'currency';
+        $this->alias = 'decimal';
+        if (is_null($this->radixPoint)) {
+            $this->radixPoint = Yii::$app->getFormatter()->decimalSeparator;
+        }
+        if (is_null($this->radixPoint)) {
+            $this->radixPoint = '.';
+        }
         parent::init();
     }
 
     public function run()
     {
         $this->clientOptions = array_merge([
-            'rightAlign' => $this->rightAlign,
             'digitsOptional' => $this->digitsOptional,
-'placeholder' => '',
-'clearMaskOnLostFocus' => true
+            'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
-            'integerDigits' => $this->integerDigits,
-            'digits' => $this->digits,
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
-            'autoGroup' => $this->autoGroup,
-            'groupSeparator' => $this->groupSeparator,
-            'prefix' => $this->prefix
+            'integerDigits' => $this->integerDigits,
+            'radixPoint' => $this->radixPoint,
+            'digits' => $this->digits
         ]);
         return parent::run();
     }
