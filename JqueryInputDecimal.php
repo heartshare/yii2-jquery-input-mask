@@ -6,16 +6,26 @@ use NumberFormatter,
     Yii;
 
 
-class JqueryInputDecimal extends JqueryInputInteger
+class JqueryInputDecimal extends JqueryInputMask
 {
 
     const ALIAS = 'decimal';
+
+    public $allowMinus = true;
+
+    public $allowPlus = false;
+
+    public $integerDigits = '+';
+
+    public $groupSeparator = null;
 
     public $radixPoint = null;
 
     public $digits = 2;
 
     public $digitsOptional = true;
+
+    public $rightAlign = false;
 
     public function init()
     {
@@ -41,8 +51,14 @@ class JqueryInputDecimal extends JqueryInputInteger
     public function run()
     {
         $this->clientOptions = array_merge([
-            'digitsOptional' => $this->digitsOptional
+            'digitsOptional' => $this->digitsOptional,
+            'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
+            'allowMinus' => $this->allowMinus,
+            'allowPlus' => $this->allowPlus,
+            'integerDigits' => $this->integerDigits,
+            'groupSeparator' => $this->groupSeparator,
+            'autoGroup' => strlen($this->groupSeparator) > 0,
             'radixPoint' => $this->radixPoint,
             'digits' => $this->digits
         ]);
