@@ -6,11 +6,11 @@ namespace yii\jquery\input_mask;
 class JqueryInputInteger extends JqueryInputMask
 {
 
-    public $integerDigits = '+';
-
     public $allowMinus = true;
 
     public $allowPlus = false;
+
+    public $integerDigits = '+';
 
     public $rightAlign = false;
 
@@ -25,9 +25,9 @@ class JqueryInputInteger extends JqueryInputMask
         $this->clientOptions = array_merge([
             'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
-            'integerDigits' => $this->integerDigits,
             'allowMinus' => $this->allowMinus,
-            'allowPlus' => $this->allowPlus
+            'allowPlus' => $this->allowPlus,
+            'integerDigits' => $this->integerDigits
         ]);
         return parent::run();
     }
