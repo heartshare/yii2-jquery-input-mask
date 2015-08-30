@@ -17,25 +17,25 @@ class JqueryInputInteger extends JqueryInputMask
 
     public $integerDigits = '+';
 
-    public $groupSeparator = null;
+    public $thousandSeparator = null;
 
     public $rightAlign = false;
 
     public function init()
     {
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->groupSeparator)) {
+        if (is_null($this->thousandSeparator)) {
             if (preg_match('~^1(\D*)000$~', $formatter->asInteger(1000), $match)) {
-                $this->groupSeparator = $match[1];
+                $this->thousandSeparator = $match[1];
             } else {
-                $this->groupSeparator = $formatter->thousandSeparator;
+                $this->thousandSeparator = $formatter->thousandSeparator;
             }
-            if (is_null($this->groupSeparator)) {
+            if (is_null($this->thousandSeparator)) {
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                    $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+                    $this->thousandSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
                 } else {
-                    $this->groupSeparator = ',';
+                    $this->thousandSeparator = ',';
                 }
             }
         }
@@ -50,8 +50,8 @@ class JqueryInputInteger extends JqueryInputMask
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
-            'groupSeparator' => $this->groupSeparator,
-            'autoGroup' => strlen($this->groupSeparator) > 0
+            'groupSeparator' => $this->thousandSeparator,
+            'autoGroup' => strlen($this->thousandSeparator) > 0
         ]);
         return parent::run();
     }
