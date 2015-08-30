@@ -21,9 +21,9 @@ class JqueryInputMoney extends JqueryInputMask
 
     public $integerDigits = '+';
 
-    public $groupSeparator = null;
+    public $thousandSeparator = null;
 
-    public $radixPoint = null;
+    public $decimalSeparator = null;
 
     public $digits = 2;
 
@@ -56,37 +56,37 @@ class JqueryInputMoney extends JqueryInputMask
                 }
             }
         }
-        if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
+        if (is_null($this->thousandSeparator) || is_null($this->decimalSeparator)) {
             if (preg_match('~^1(\D*)000(\D*)99$~', $formatter->asDecimal(1000.99), $match)) {
-                if (is_null($this->groupSeparator)) {
-                    $this->groupSeparator = $match[1];
+                if (is_null($this->thousandSeparator)) {
+                    $this->thousandSeparator = $match[1];
                 }
-                if (is_null($this->radixPoint)) {
-                    $this->radixPoint = $match[2];
+                if (is_null($this->decimalSeparator)) {
+                    $this->decimalSeparator = $match[2];
                 }
             } else {
-                if (is_null($this->groupSeparator)) {
-                    $this->groupSeparator = $formatter->thousandSeparator;
+                if (is_null($this->thousandSeparator)) {
+                    $this->thousandSeparator = $formatter->thousandSeparator;
                 }
-                if (is_null($this->radixPoint)) {
-                    $this->radixPoint = $formatter->decimalSeparator;
+                if (is_null($this->decimalSeparator)) {
+                    $this->decimalSeparator = $formatter->decimalSeparator;
                 }
             }
-            if (is_null($this->groupSeparator) || is_null($this->radixPoint)) {
+            if (is_null($this->thousandSeparator) || is_null($this->decimalSeparator)) {
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                    if (is_null($this->groupSeparator)) {
-                        $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL);
+                    if (is_null($this->thousandSeparator)) {
+                        $this->thousandSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL);
                     }
-                    if (is_null($this->radixPoint)) {
-                        $this->radixPoint = $numberFormatter->getSymbol(NumberFormatter::MONETARY_SEPARATOR_SYMBOL);
+                    if (is_null($this->decimalSeparator)) {
+                        $this->decimalSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_SEPARATOR_SYMBOL);
                     }
                 } else {
-                    if (is_null($this->groupSeparator)) {
-                        $this->groupSeparator = ',';
+                    if (is_null($this->thousandSeparator)) {
+                        $this->thousandSeparator = ',';
                     }
-                    if (is_null($this->radixPoint)) {
-                        $this->radixPoint = '.';
+                    if (is_null($this->decimalSeparator)) {
+                        $this->decimalSeparator = '.';
                     }
                 }
             }
@@ -104,9 +104,9 @@ class JqueryInputMoney extends JqueryInputMask
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
-            'groupSeparator' => $this->groupSeparator,
-            'autoGroup' => strlen($this->groupSeparator) > 0,
-            'radixPoint' => $this->radixPoint,
+            'groupSeparator' => $this->thousandSeparator,
+            'autoGroup' => strlen($this->thousandSeparator) > 0,
+            'radixPoint' => $this->decimalSeparator,
             'digits' => $this->digits,
             'suffix' => $this->suffix
         ]);
