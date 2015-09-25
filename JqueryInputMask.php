@@ -8,9 +8,9 @@ use yii\widgets\MaskedInput;
 class JqueryInputMask extends MaskedInput
 {
 
-    const MASK = null;
+    const MASK = null; // abstract
 
-    const ALIAS = null;
+    const ALIAS = null; // abstract
 
     public $alias = null;
 
