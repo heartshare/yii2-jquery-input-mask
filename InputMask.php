@@ -2,28 +2,27 @@
 
 namespace yii\jquery\inputmask;
 
-use yii\widgets\MaskedInput;
+use yii\helpers\Html;
+use yii\widgets\InputWidget;
 
-class InputMask extends MaskedInput
+class InputMask extends InputWidget
 {
-
-    const MASK = null; // abstract
-
-    const ALIAS = null; // abstract
 
     public $alias = null;
 
+    public $mask = null;
+
+    /**
+     * @var array
+     */
+    public $clientOptions = [];
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
-        if (!is_null(self::MASK)) {
-            $this->mask = self::MASK;
-        }
-        if (!is_null(self::ALIAS)) {
-            $this->alias = self::ALIAS;
-        }
-        if (!is_null($this->alias)) {
-            $this->clientOptions['alias'] = $this->alias;
-        }
+        Html::addCssClass($this->options, 'form-control');
         parent::init();
     }
 }

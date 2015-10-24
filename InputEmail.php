@@ -5,5 +5,12 @@ namespace yii\jquery\inputmask;
 class InputEmail extends InputMask
 {
 
-    const ALIAS = 'email';
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->alias = 'email';
+        parent::init();
+    }
 }

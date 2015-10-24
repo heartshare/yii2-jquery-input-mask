@@ -5,7 +5,12 @@ namespace yii\jquery\inputmask;
 class InputMac extends InputMask
 {
 
-    const MASK = '##:##:##:##:##:##';
-
-    //const ALIAS = 'mac';
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->alias = 'mac';
+        parent::init();
+    }
 }

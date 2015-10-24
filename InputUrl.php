@@ -5,5 +5,12 @@ namespace yii\jquery\inputmask;
 class InputUrl extends InputMask
 {
 
-    const ALIAS = 'url';
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->alias = 'url';
+        parent::init();
+    }
 }
