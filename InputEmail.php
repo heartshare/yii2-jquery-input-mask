@@ -2,7 +2,7 @@
 
 namespace yii\jquery\inputmask;
 
-class JqueryInputEmail extends JqueryInputMask
+class InputEmail extends InputMask
 {
 
     const ALIAS = 'email';

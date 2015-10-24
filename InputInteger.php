@@ -5,7 +5,7 @@ namespace yii\jquery\inputmask;
 use NumberFormatter,
     Yii;
 
-class JqueryInputInteger extends JqueryInputMask
+class InputInteger extends InputMask
 {
 
     const ALIAS = 'integer';

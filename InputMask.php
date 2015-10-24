@@ -4,7 +4,7 @@ namespace yii\jquery\inputmask;
 
 use yii\widgets\MaskedInput;
 
-class JqueryInputMask extends MaskedInput
+class InputMask extends MaskedInput
 {
 
     const MASK = null; // abstract

@@ -5,14 +5,10 @@ namespace yii\jquery\inputmask;
 use NumberFormatter,
     Yii;
 
-class JqueryInputMoney extends JqueryInputMask
+class InputDecimal extends InputMask
 {
 
-    const ALIAS = 'currency';
-
-    public $currency = null;
-
-    public $prefix = null;
+    const ALIAS = 'decimal';
 
     public $allowMinus = true;
 
@@ -30,31 +26,9 @@ class JqueryInputMoney extends JqueryInputMask
 
     public $rightAlign = false;
 
-    public $suffix = null;
-
     public function init()
     {
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->currency)) {
-            $this->currency = $formatter->currencyCode;
-        }
-        if (is_null($this->prefix) || is_null($this->suffix)) {
-            if (($this->currency !== false) && preg_match('~^(\D*)1\D*000\D*99(\D*)$~', $formatter->asCurrency(1000.99, $this->currency), $match)) {
-                if (is_null($this->prefix)) {
-                    $this->prefix = $match[1];
-                }
-                if (is_null($this->suffix)) {
-                    $this->suffix = $match[2];
-                }
-            } else {
-                if (is_null($this->prefix)) {
-                    $this->prefix = '';
-                }
-                if (is_null($this->suffix)) {
-                    $this->suffix = '';
-                }
-            }
-        }
         if (is_null($this->thousandSeparator) || is_null($this->decimalSeparator)) {
             if (preg_match('~^1(\D*)000(\D*)99$~', $formatter->asDecimal(1000.99), $match)) {
                 if (is_null($this->thousandSeparator)) {
@@ -75,10 +49,10 @@ class JqueryInputMoney extends JqueryInputMask
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
                     if (is_null($this->thousandSeparator)) {
-                        $this->thousandSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL);
+                        $this->thousandSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
                     }
                     if (is_null($this->decimalSeparator)) {
-                        $this->decimalSeparator = $numberFormatter->getSymbol(NumberFormatter::MONETARY_SEPARATOR_SYMBOL);
+                        $this->decimalSeparator = $numberFormatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
                     }
                 } else {
                     if (is_null($this->thousandSeparator)) {
@@ -99,15 +73,13 @@ class JqueryInputMoney extends JqueryInputMask
             'digitsOptional' => $this->digitsOptional,
             'rightAlign' => $this->rightAlign
         ], $this->clientOptions, [
-            'prefix' => $this->prefix,
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
             'groupSeparator' => $this->thousandSeparator,
             'autoGroup' => strlen($this->thousandSeparator) > 0,
             'radixPoint' => $this->decimalSeparator,
-            'digits' => $this->digits,
-            'suffix' => $this->suffix
+            'digits' => $this->digits
         ]);
         return parent::run();
     }

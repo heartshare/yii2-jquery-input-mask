@@ -2,7 +2,7 @@
 
 namespace yii\jquery\inputmask;
 
-class JqueryInputPhone extends JqueryInputMask
+class InputPhone extends InputMask
 {
 
     const ALIAS = 'phone';

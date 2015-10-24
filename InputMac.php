@@ -2,7 +2,7 @@
 
 namespace yii\jquery\inputmask;
 
-class JqueryInputMac extends JqueryInputMask
+class InputMac extends InputMask
 {
 
     const MASK = '##:##:##:##:##:##';

@@ -2,7 +2,7 @@
 
 namespace yii\jquery\inputmask;
 
-class JqueryInputUrl extends JqueryInputMask
+class InputUrl extends InputMask
 {
 
     const ALIAS = 'url';
