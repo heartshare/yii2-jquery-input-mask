@@ -1,10 +1,9 @@
 <?php
 
-namespace yii\jquery\input_mask;
+namespace yii\jquery\inputmask;
 
 use NumberFormatter,
     Yii;
-
 
 class JqueryInputMoney extends JqueryInputMask
 {

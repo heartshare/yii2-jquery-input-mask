@@ -1,7 +1,6 @@
 <?php
 
-namespace yii\jquery\input_mask;
-
+namespace yii\jquery\inputmask;
 
 class JqueryInputMac extends JqueryInputMask
 {

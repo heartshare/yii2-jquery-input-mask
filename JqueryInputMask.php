@@ -1,9 +1,8 @@
 <?php
 
-namespace yii\jquery\input_mask;
+namespace yii\jquery\inputmask;
 
 use yii\widgets\MaskedInput;
-
 
 class JqueryInputMask extends MaskedInput
 {
