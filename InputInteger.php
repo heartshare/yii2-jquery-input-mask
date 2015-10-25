@@ -8,14 +8,27 @@ use Yii;
 class InputInteger extends InputMask
 {
 
+    /**
+     * @var bool
+     */
     public $allowMinus = true;
 
+    /**
+     * @var bool
+     */
     public $allowPlus = false;
 
     public $integerDigits = '+';
 
-    public $thousandSeparator = null;
+    /**
+     * @var string|null
+     * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$thousandSeparator-detail
+     */
+    public $groupSeparator = null;
 
+    /**
+     * @var bool
+     */
     public $rightAlign = false;
 
     /**
@@ -25,18 +38,18 @@ class InputInteger extends InputMask
     {
         $this->alias = 'integer';
         $formatter = Yii::$app->getFormatter();
-        if (is_null($this->thousandSeparator)) {
+        if (is_null($this->groupSeparator)) {
             if (preg_match('~^1(\D*)000$~', $formatter->asInteger(1000), $match)) {
-                $this->thousandSeparator = $match[1];
+                $this->groupSeparator = $match[1];
             } else {
-                $this->thousandSeparator = $formatter->thousandSeparator;
+                $this->groupSeparator = $formatter->thousandSeparator;
             }
-            if (is_null($this->thousandSeparator)) {
+            if (is_null($this->groupSeparator)) {
                 if (extension_loaded('intl')) {
                     $numberFormatter = new NumberFormatter($formatter->locale, NumberFormatter::DECIMAL);
-                    $this->thousandSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+                    $this->groupSeparator = $numberFormatter->getSymbol(NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
                 } else {
-                    $this->thousandSeparator = ',';
+                    $this->groupSeparator = ',';
                 }
             }
         }
@@ -54,8 +67,8 @@ class InputInteger extends InputMask
             'allowMinus' => $this->allowMinus,
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
-            'groupSeparator' => $this->thousandSeparator,
-            'autoGroup' => strlen($this->thousandSeparator) > 0
+            'groupSeparator' => $this->groupSeparator,
+            'autoGroup' => strlen($this->groupSeparator) > 0
         ]);
         return parent::run();
     }

@@ -56,11 +56,11 @@ class InputMask extends InputWidget
         } else {
             $output = Html::textInput($this->name, $this->value, $options);
         }
-        if (!is_null($this->alias)) {
-            $clientOptions = array_merge($this->clientOptions, ['alias' => $this->alias]);
-        } else {
-            $clientOptions = array_merge($this->clientOptions, ['mask' => $this->mask]);
-        }
+if (!is_null($this->alias)) {
+$clientOptions = array_merge($this->clientOptions, ['alias' => $this->alias]);
+} else {
+$clientOptions = array_merge($this->clientOptions, ['mask' => $this->mask]);
+}
         if (!array_key_exists('placeholder', $clientOptions) && array_key_exists('placeholder', $options)) {
             $clientOptions['placeholder'] = $options['placeholder'];
         }
