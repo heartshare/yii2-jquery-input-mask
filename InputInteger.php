@@ -37,8 +37,8 @@ class InputInteger extends InputMask
     public function init()
     {
         $this->alias = 'integer';
-        $formatter = Yii::$app->getFormatter();
         if (is_null($this->groupSeparator)) {
+            $formatter = Yii::$app->getFormatter();
             if (preg_match('~^1(\D*)000$~', $formatter->asInteger(1000), $match)) {
                 $this->groupSeparator = $match[1];
             } else {
