@@ -2,13 +2,11 @@
 
 namespace yii\jquery\inputmask;
 
-use NumberFormatter,
-    Yii;
+use NumberFormatter;
+use Yii;
 
 class InputInteger extends InputMask
 {
-
-    const ALIAS = 'integer';
 
     public $allowMinus = true;
 
@@ -20,8 +18,12 @@ class InputInteger extends InputMask
 
     public $rightAlign = false;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
+        $this->alias = 'integer';
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->thousandSeparator)) {
             if (preg_match('~^1(\D*)000$~', $formatter->asInteger(1000), $match)) {
@@ -41,6 +43,9 @@ class InputInteger extends InputMask
         parent::init();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
         $this->clientOptions = array_merge([

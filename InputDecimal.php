@@ -2,13 +2,11 @@
 
 namespace yii\jquery\inputmask;
 
-use NumberFormatter,
-    Yii;
+use NumberFormatter;
+use Yii;
 
 class InputDecimal extends InputMask
 {
-
-    const ALIAS = 'decimal';
 
     public $allowMinus = true;
 
@@ -26,8 +24,12 @@ class InputDecimal extends InputMask
 
     public $rightAlign = false;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
+        $this->alias = 'decimal';
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->thousandSeparator) || is_null($this->decimalSeparator)) {
             if (preg_match('~^1(\D*)000(\D*)99$~', $formatter->asDecimal(1000.99), $match)) {
@@ -67,6 +69,9 @@ class InputDecimal extends InputMask
         parent::init();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
         $this->clientOptions = array_merge([

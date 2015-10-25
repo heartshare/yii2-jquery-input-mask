@@ -2,13 +2,11 @@
 
 namespace yii\jquery\inputmask;
 
-use NumberFormatter,
-    Yii;
+use NumberFormatter;
+use Yii;
 
 class InputMoney extends InputMask
 {
-
-    const ALIAS = 'currency';
 
     public $currency = null;
 
@@ -32,8 +30,12 @@ class InputMoney extends InputMask
 
     public $suffix = null;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
+        $this->alias = 'currency';
         $formatter = Yii::$app->getFormatter();
         if (is_null($this->currency)) {
             $this->currency = $formatter->currencyCode;
@@ -93,6 +95,9 @@ class InputMoney extends InputMask
         parent::init();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
         $this->clientOptions = array_merge([
