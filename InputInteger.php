@@ -10,11 +10,13 @@ class InputInteger extends InputMask
 
     /**
      * @var bool
+     * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
      */
     public $allowMinus = true;
 
     /**
      * @var bool
+     * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
      */
     public $allowPlus = false;
 
@@ -23,11 +25,13 @@ class InputInteger extends InputMask
     /**
      * @var string|null
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$thousandSeparator-detail
+     * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
      */
     public $groupSeparator = null;
 
     /**
      * @var bool
+     * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
      */
     public $rightAlign = false;
 
