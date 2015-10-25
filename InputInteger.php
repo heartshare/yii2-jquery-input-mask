@@ -20,6 +20,10 @@ class InputInteger extends InputMask
      */
     public $allowPlus = false;
 
+    /**
+     * @var int|string '+'
+     * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
+     */
     public $integerDigits = '+';
 
     /**
