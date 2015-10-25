@@ -11,13 +11,13 @@ class InputMask extends InputWidget
 {
 
     /**
-     * @var string|null
+     * @var null|string
      * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README.md
      */
     public $alias = null;
 
     /**
-     * @var string|\yii\web\JsExpression|null
+     * @var null|string|\yii\web\JsExpression
      * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README.md
      */
     public $mask = null;
