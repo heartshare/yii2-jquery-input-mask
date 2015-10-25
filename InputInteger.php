@@ -72,7 +72,7 @@ class InputInteger extends InputMask
             'allowPlus' => $this->allowPlus,
             'integerDigits' => $this->integerDigits,
             'groupSeparator' => $this->groupSeparator,
-            'autoGroup' => strlen($this->groupSeparator) > 0
+            'autoGroup' => (bool)strlen($this->groupSeparator)
         ]);
         return parent::run();
     }
