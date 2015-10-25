@@ -17,10 +17,10 @@ class InputMask extends InputWidget
     public $alias = null;
 
     /**
-     * @var null|string|\yii\web\JsExpression
+     * @var string|array|\yii\web\JsExpression
      * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README.md
      */
-    public $mask = null;
+    public $mask = '9*';
 
     /**
      * @var array
@@ -56,10 +56,11 @@ class InputMask extends InputWidget
         } else {
             $output = Html::textInput($this->name, $this->value, $options);
         }
-        $clientOptions = array_merge($this->clientOptions, [
-            'alias' => $this->alias,
-            'mask' => $this->mask
-        ]);
+        if (!is_null($this->alias)) {
+            $clientOptions = array_merge($this->clientOptions, ['alias' => $this->alias]);
+        } else {
+            $clientOptions = array_merge($this->clientOptions, ['mask' => $this->mask]);
+        }
         if (!array_key_exists('placeholder', $clientOptions) && array_key_exists('placeholder', $options)) {
             $clientOptions['placeholder'] = $options['placeholder'];
         }
