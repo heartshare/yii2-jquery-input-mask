@@ -12,11 +12,12 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": ">=2.0.4"
+    "yiisoft/yii2": ">=2.0.4",
+    "npm-asset/jquery.inputmask": "3.2.*"
   },
   "autoload": {
     "psr-4": {
-      "yii\\jquery\\input_mask\\": ""
+      "yii\\jquery\\inputmask\\": ""
     }
   }
 }
