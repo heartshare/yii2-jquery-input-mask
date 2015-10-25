@@ -20,7 +20,7 @@ class InputMask extends InputWidget
      * @var string|array|\yii\web\JsExpression
      * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README.md
      */
-    public $mask = '9*';
+    public $mask = '9{0,}';
 
     /**
      * @var array
