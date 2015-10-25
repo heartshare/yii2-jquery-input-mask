@@ -30,6 +30,7 @@ class InputInteger extends InputMask
      * @var string|null
      * @see http://www.yiiframework.com/doc-2.0/yii-i18n-formatter.html#$thousandSeparator-detail
      * @see https://github.com/RobinHerbots/jquery.inputmask/blob/3.x/README_numeric.md
+     * @uses NumberFormatter::GROUPING_SEPARATOR_SYMBOL
      */
     public $groupSeparator = null;
 
